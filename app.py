@@ -1,11 +1,8 @@
 import streamlit as st
-from huggingface_hub import InferenceClient
+from groq import Groq
 import os
 
-client = InferenceClient(
-   model="meta-llama/Llama-3.2-3B-Instruct",
-    token=os.environ.get("HF_TOKEN")
-)
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 st.title("🤖 My Chatbot")
 
@@ -28,9 +25,10 @@ if prompt := st.chat_input("اكتبي سؤالك هنا..."):
                 for msg in st.session_state.messages:
                     messages.append({"role": msg["role"], "content": msg["content"]})
 
-                response = client.chat_completion(
+                response = client.chat.completions.create(
+                    model="llama3-8b-8192",
                     messages=messages,
-                    max_tokens=300,
+                    max_tokens=500,
                     temperature=0.7
                 )
                 answer = response.choices[0].message.content
