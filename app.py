@@ -3,7 +3,7 @@ from huggingface_hub import InferenceClient
 import os
 
 client = InferenceClient(
-   model="mistralai/Mistral-7B-Instruct-v0.3",
+   model="meta-llama/Llama-3.2-3B-Instruct",
     token=os.environ.get("HF_TOKEN")
 )
 
